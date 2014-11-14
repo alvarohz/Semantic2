@@ -1,0 +1,15 @@
+let (int n1, int n2, int n4) in
+{
+	int n3;
+	n3 = 6;
+	print n3;
+	let (string b1) in 
+	{
+		b1=2;
+		print b1;
+		int n3;
+		n3 = 8;
+		print n3;
+	} end
+	n3=10;
+} end
