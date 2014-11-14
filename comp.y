@@ -4,10 +4,10 @@ void yyerror(char *);
 int yylex(void);
 extern simbolo *t;
 %}
-%union {
-			int numero;
-			simbolo * ptr_simbolo;
-		}
+%union 	{
+	int numero;
+	simbolo * ptr_simbolo;
+	}
 %start programa		
 %token <numero> NUMERO
 %token <ptr_simbolo> ID
@@ -30,16 +30,18 @@ declaraciones:
 		;
 decl:
 		tipo ID	{
-		simbolo *s = buscarEnBloque(t, $2->nombre, level);		      //printf("%s -> %d\n", $2->nombre, $2->scope);
-		if (s==NULL){
-			$2->valor=0;					       		insertar(&t, $2);   						    }
+				simbolo *s = buscarEnBloque(t, $2->nombre, level);		     
+				if (s==NULL){
+					$2->valor=0;					       	
+					insertar(&t, $2);
+				}
 			}
 		;
 tipo:
 		INTEGER				{;}
 		|STRING				{;}
 		;
-sentencias: /* cadena vacia */			{;}
+sentencias: /* cadena vacia */				{;}
 		| sentencias sentencia ';'		{;}
 		| sentencias programa 			{;}
 		;
@@ -48,11 +50,10 @@ sentencia:
 		| EXIT_COMMAND		{ exit(EXIT_SUCCESS);}
 		| PRINT expr		{ printf("%d\n", $$); }
 		| ID '=' expr		{ 
-			$$ = $3;
-			simbolo *s = buscar(t, $1->nombre);
-			s->valor = $3; 								
-					}
-		| decl				{;}
+						$$ = $3;
+						simbolo *s = buscar(t, $1->nombre);
+						s->valor = $3; 												  }
+		| decl			{;}
 		;
 expr:
         NUMERO	       	    { $$ = $1;}
@@ -76,7 +77,7 @@ void main()
 { 
 	t = crear();
 	yyparse();
-//eliminarBloque(&t);
-//eliminarBloque(&t);
+	//eliminarBloque(&t);
+	//eliminarBloque(&t);
 	imprimir(t);
 }
